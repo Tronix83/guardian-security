@@ -7,27 +7,31 @@ const { Server } = require("socket.io");
 const db = require("./db");
 
 const app = express();
-app.use(cors());
+
+app.use(cors({ origin: "*" }));
 app.use(express.json());
+
+// ✅ ROUTES MUST EXIST AND BE CORRECT
+app.use("/auth", require("./routes/authRoutes"));
+app.use("/servers", require("./routes/serverRoutes"));
+app.use("/channels", require("./routes/channelRoutes"));
+app.use("/messages", require("./routes/messageRoutes"));
 
 const server = http.createServer(app);
 
 const io = new Server(server, {
-  cors: {
-    origin: "*"
-  }
+  cors: { origin: "*" }
 });
 
-// 🔌 Socket handler
 require("./socket")(io, db);
 
-// 🌐 Basic route
 app.get("/", (req, res) => {
-  res.send("Chat backend running 🚀");
+  res.send("Guardian Security API running 🛡️");
 });
 
-// 🔐 Example auth route placeholder
-app.use("/auth", require("./routes/auth"));
+app.get("/test-auth", (req, res) => {
+  res.json({ ok: true });
+});
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
