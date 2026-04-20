@@ -1,0 +1,21 @@
+body {
+  background: #0b0f19;
+  color: white;
+  font-family: Arial;
+}
+
+.chat-container {
+  width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #111827;
+  border-radius: 10px;
+}
+
+#messages {
+  height: 300px;
+  overflow-y: scroll;
+  border: 1px solid #333;
+  margin-bottom: 10px;
+  padding: 10px;
+}
